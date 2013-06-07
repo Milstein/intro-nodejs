@@ -1,0 +1,21 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:9595');
+  socket.on('news', function (data) {
+    console.log(data);
+    $("#response").append("<div>" + data.message + "</div>");
+  });
+  $(function(){
+    $("button").click(function(){
+      socket.emit('my other event', { message: $("#myText").val()});
+    });});
+</script>
+</head>
+<body>
+  <input type="text" id="myText"></input><button>Send</button>
+  <div id="response"></div>
+</body>
+</html>
