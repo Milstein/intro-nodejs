@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" contenteditable="true">
 
 	<head>
 		<meta charset="utf-8">
@@ -257,11 +257,44 @@ console.log('Server running at http://127.0.0.1:9995/');
         
 <br>
 <div>
-        <a href="http://127.0.0.1:9995/">http://127.0.0.1:9995</a>
+        <a href="http://127.0.0.1:9995/" target="_blank">http://127.0.0.1:9995</a>
     </div>
 
 </section>
 
+<section>
+        <h2>Core Modules</h2>
+<div>
+        <br>
+    </div>
+<div>
+    <div>
+        <pre><code class='javascript'>var http = require('http');
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(9995, '127.0.0.1');
+
+console.log('Server running at http://127.0.0.1:9995/');  
+    </code></pre>
+        </div>
+    </div>
+<div>
+<br>
+</div>
+<div>
+    <br>
+</div>
+<div>
+    <br>
+</div>
+<div>
+    <a href="http://nodejs.org/api/">http://nodejs.org/api</a>
+    <div>
+    </div>
+</div>
+</section>
     <section>
         <section>
             <h2>NPM</h2>
@@ -332,40 +365,9 @@ _([1,2,3]).each(function(num) { console.log(num); });
             </div>
         </section>
     </section>
-    <section>
-        <h2>Core Modules</h2>
-<div>
-        <br>
-    </div>
-<div>
-    <div>
-        <pre><code class='javascript'>var http = require('http');
-
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(9995, '127.0.0.1');
-
-console.log('Server running at http://127.0.0.1:9995/');  
-    </code></pre>
-        </div>
-    </div>
-<div>
-<br>
-</div>
-<div>
-    <br>
-</div>
-<div>
-    <br>
-</div>
-<div>
-    <a href="http://nodejs.org/api/">http://nodejs.org/api</a>
-    <div>
-    </div>
-</div>
-</section>
+    
 <section>
+    <section>
     <h2>File Modules</h2>
 <pre><code class="javascript">//circle.js
 var PI = Math.PI;
@@ -400,6 +402,26 @@ $node foo.js
 </div>
 </section>
 <section>
+    <h2>Folder Modules</h2>
+    <div><br/></div>
+    <pre><code class="javascript">//./square/index.js
+exports.area = function (h) {
+  return h * h;
+};
+    </code></pre>
+    
+    <pre><code class="javascript">//foo.js
+var square = require('./square.js');
+console.log( 'The area of a square of radius 4 is ' + square.area(4));
+    </code></pre>
+    <pre><code class="javascript">
+$node foo.js
+</code></pre>
+    
+
+</section>
+</section>
+<section>
     <section>
         <h2>Socket.IO</h2>
         <div>
@@ -410,7 +432,7 @@ $node foo.js
   , io = require('socket.io').listen(app)
   , fs = require('fs')
 
-app.listen(80);
+app.listen(9595);
 
 function handler (req, res) {
   fs.readFile(__dirname + '/index.html',
@@ -459,7 +481,7 @@ io.sockets.on('connection', function (socket) {
         <pre><code class="html" style="max-height:500px;">...
 &lt;script src="/socket.io/socket.io.js"&gt;&lt;/script&gt;
 &lt;script&gt;
-  var socket = io.connect('http://localhost');
+  var socket = io.connect('http://localhost:9595');
   socket.on('news', function (data) {
     console.log(data);
     $("#response").append("&lt;div&gt;" + data.message + "&lt;/div&gt;");
@@ -480,6 +502,7 @@ io.sockets.on('connection', function (socket) {
 
 </section>
 </section>
+<section>
 <section>
     <h2>debugging</h2>
 <div>built in debugger</div>
@@ -509,9 +532,36 @@ console.log('square of 2: ' + square.area(2));<br>
 </div>
 </section>
 <section>
+    <h2>node-inspector</h2>
+    <pre><code>
+//app.js
+var http = require('http');
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(9995, '127.0.0.1');
+
+console.log('Server running at http://127.0.0.1:9995/');  
+    </code></pre>
+    <pre><code>
+$ npm install -g node-inspector
+
+$ node --debug app.js
+
+$ node-inspector &
+    </code></pre>
+    <div>
+        <br/>
+        <a href="http://127.0.0.1:8080/debug?port=5858">http://127.0.0.1:8080/debug?port=5858</a> 
+    </div>
+</section>
+</section>
+<section>
     <section>
         <h2>Express Web Server</h2>
 <div>minimalist web framework for node</div>
+<pre><code>$  npm install express </code></pre>
 <div>
     <br>
 </div>
@@ -519,7 +569,7 @@ console.log('square of 2: ' + square.area(2));<br>
 var app = express();
 
 app.get('/', function(req, res){
-  res.send('Hello World');
+  res.send('Hello World from Express');
 });
 
 app.listen(3000);</code></pre>
@@ -552,6 +602,17 @@ $ npm install
 $ node app</code></pre>
         </div>
     </section>
+
+<section>
+    <h2>Other Frameworks</h2>
+    <div><br/></div>
+    <div>
+        <ul>
+            <li>Geddy - a bit more structure than Express</li>
+            <li>TowerJs - Rails clone</li>
+        </ul>
+    </div>
+</section>
 </section>
 <section>
     <h2>The end</h2>
@@ -566,8 +627,9 @@ $ node app</code></pre>
     <br>
 </div>
 <div>
-    <a href="https://github.com/andrewhanson/bcc-intro-nodejs">https://github.com/andrewhanson/bcc-intro-nodejs</a>
+    Source - <a href="https://github.com/andrewhanson/intro-nodejs">https://github.com/andrewhanson/intro-nodejs</a>
     <br>
+    Slides - <a href="http://andrewhanson.github.io/intro-nodejs/#/">http://andrewhanson.github.io/intro-nodejs/#/</a>
 </div>
 <div>
     <br>
@@ -582,9 +644,12 @@ $ node app</code></pre>
     <br>
 </div>
 <div>
-    <img src="http://boisecodecamp.org/Themes/BCC.Theme/Images/HeaderLogo003.png">
     <br>
 </div>
+<div>
+    <br>
+</div>
+
 </section>
 </div>
 
@@ -603,6 +668,7 @@ $ node app</code></pre>
 				progress: true,
 				history: true,
 				center: true,
+                rollingLinks: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
